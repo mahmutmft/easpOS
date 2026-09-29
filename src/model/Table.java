@@ -1,16 +1,18 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Table {
     private int id;
     private Waiter waiter;
+    private TableStatus status;
     private String name;
-    private Order order;
+    private ArrayList<Order> orders;
 
-    public Table(int id, Waiter waiter, String name, Order order) {
+    public Table(int id) {
         this.id = id;
-        this.waiter = waiter;
-        this.name = name;
-        this.order = order;
+        this.orders = new ArrayList<>();
+        this.status = TableStatus.AVAILABLE;
     }
 
     public int getId() {
@@ -37,11 +39,33 @@ public class Table {
         this.name = name;
     }
 
-    public Order getOrder() {
-        return order;
+    public TableStatus getStatus() {
+        return status;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setStatus(TableStatus status) {
+        this.status = status;
+    }
+
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(ArrayList<Order> orders) {
+        this.orders = orders;
+    }
+
+    @Override
+    public String toString() {
+        if (waiter == null) {
+            return String.format("Table ID: %d - Status: %s", id, status);
+        }
+
+        return String.format(
+                "Table ID: %d - Status: %s - Waiter: %s",
+                id,
+                status,
+                waiter.getName()
+        );
     }
 }
