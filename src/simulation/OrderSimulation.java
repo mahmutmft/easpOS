@@ -13,18 +13,14 @@ public class OrderSimulation {
 
         OrderService orderService = new OrderService();
 
-        // CREATE ORDER
-        System.out.println("\n=== CREATE ORDER ===");
+        printSection("CREATE ORDER");
 
         Order order = orderService.createOrder();
-
-        System.out.println("Order created");
-
-
-        // CREATE ITEMS
-        System.out.println("\n=== CREATE ITEMS ===");
+        System.out.println("Order created: #" + order.getId());
 
         try {
+            printSection("CREATE ITEMS");
+
             Item cocaCola = new Item(
                     1,
                     "CocaCola",
@@ -41,57 +37,68 @@ public class OrderSimulation {
                     "test"
             );
 
-            System.out.println("Items created");
+            System.out.println("Created: " + cocaCola.getName());
+            System.out.println("Created: " + fanta.getName());
 
 
-            // ADD ITEMS
-            System.out.println("\n=== ADD ITEMS ===");
+            printSection("ADD ITEMS");
 
             orderService.addItemToOrder(order, cocaCola, 21);
             orderService.addItemToOrder(order, fanta, 2);
 
-            orderService.listOrderItems(order);
+            // Test duplicate item
+            orderService.addItemToOrder(order, cocaCola, 21);
+
+            printOrder(orderService, order);
 
 
-            // CALCULATE TOTAL
-            System.out.println("\n=== TOTAL ===");
+            printSection("CURRENT TOTAL");
 
-            BigDecimal total = orderService.calculateTotal(order);
+            System.out.println(
+                    "Total: " + orderService.calculateTotal(order)
+            );
 
-            System.out.println("Total: " + total);
 
-
-            // CHANGE QUANTITY
-            System.out.println("\n=== CHANGE QUANTITY ===");
+            printSection("CHANGE QUANTITY");
 
             orderService.changeQuantity(order);
 
-            System.out.println("\nUpdated order:");
-            orderService.listOrderItems(order);
+            System.out.println("\nOrder after quantity change:");
+            printOrder(orderService, order);
 
 
-            // REMOVE ITEM
-            System.out.println("\n=== REMOVE ITEM ===");
+            printSection("REMOVE ITEM");
 
             orderService.removeItem(order);
 
-            System.out.println("\nUpdated order:");
-            orderService.listOrderItems(order);
+            System.out.println("\nOrder after removing item:");
+            printOrder(orderService, order);
 
 
-            // FINAL RESULT
-            System.out.println("\n=== FINAL ORDER ===");
+            printSection("FINAL ORDER");
 
-            orderService.listOrderItems(order);
+            printOrder(orderService, order);
 
             BigDecimal finalTotal = orderService.calculateTotal(order);
 
-            System.out.println("Final total: " + finalTotal);
+            System.out.println("\nFinal total: " + finalTotal);
 
         } catch (InvalidPriceException e) {
-            System.out.println("ERROR: " + e.getMessage());
+            System.out.println("\nSIMULATION ERROR: " + e.getMessage());
         }
 
-        System.out.println("\n=== SIMULATION FINISHED ===");
+        printSection("SIMULATION FINISHED");
+    }
+
+
+    private static void printOrder(OrderService orderService, Order order) {
+        orderService.listOrderItems(order);
+    }
+
+
+    private static void printSection(String title) {
+        System.out.println("\n==============================");
+        System.out.println(title);
+        System.out.println("==============================");
     }
 }
