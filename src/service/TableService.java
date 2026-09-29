@@ -1,7 +1,9 @@
 package service;
 
 import model.*;
+import org.w3c.dom.html.HTMLTableElement;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +14,7 @@ public class TableService {
     private final Scanner scanner = new Scanner(System.in);
     private final OrderService orderService = new OrderService();
     private final ItemService itemService = new ItemService();
+    private final SaleService saleService = new SaleService();
 
 
     public Table createTable() {
@@ -52,17 +55,11 @@ public class TableService {
     }
 
 
-    public void openTable(
-            Table table,
-            ArrayList<Item> items,
-            Waiter waiter
-    ) {
+    public void openTable(Table table, ArrayList<Item> items, Waiter waiter) {
 
         if (table.getOrders().isEmpty()) {
 
-            System.out.println(
-                    "The table is empty. Press 1 if you want to add a new order"
-            );
+            System.out.println("The table is empty. Press 1 if you want to add a new order");
 
             int option = scanner.nextInt();
 
@@ -78,7 +75,7 @@ public class TableService {
 
 
         System.out.println("\nTable already has orders.");
-        System.out.println("Press 1 to add a new order or 2 to list orders");
+        System.out.println("Press 1 to add a new order or 2 to list orders or 3 to pay");
 
         int option = scanner.nextInt();
 
@@ -89,14 +86,45 @@ public class TableService {
         if (option == 2) {
             listTableOrders(table);
         }
+
+        if (option == 3) {
+            System.out.println(calculateTheTable(table));
+        }
     }
 
 
     private void listTableOrders(Table table) {
-
         for (Order order : table.getOrders()) {
             System.out.println("\nOrder #" + order.getId());
             orderService.listOrderItems(order);
+        }
+    }
+
+    public BigDecimal calculateTheTable(Table table) {
+        BigDecimal tableTotal = new BigDecimal("0");
+        for (Order order : table.getOrders()) {
+            tableTotal = tableTotal.add(orderService.calculateTotal(order));
+        }
+        return tableTotal;
+    }
+
+    public void payTheTable(Table table) {
+
+        BigDecimal totalPrice = calculateTheTable(table);
+
+        System.out.println(totalPrice);
+        System.out.println("Are you sure you want to pay the table");
+
+        int number = scanner.nextInt();
+
+        if (number == 1) {
+
+            System.out.println("Table is paid");
+            saleService.storeSale(table, totalPrice);
+
+            table.setStatus(TableStatus.AVAILABLE);
+            table.setWaiter(null);
+            table.getOrders().clear();
         }
     }
 }
