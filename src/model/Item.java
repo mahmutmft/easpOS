@@ -69,6 +69,6 @@ public class Item {
 
     @Override
     public String toString() {
-       return String.format("%s %s" ,name, price);
+       return String.format("id: %s - %s %s" ,id, name, price);
     }
 }
