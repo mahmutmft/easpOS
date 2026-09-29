@@ -5,8 +5,6 @@ import model.Order;
 import model.OrderItem;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class OrderService {
