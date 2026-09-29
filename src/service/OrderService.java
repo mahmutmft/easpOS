@@ -20,8 +20,20 @@ public class OrderService {
     }
 
     public void addItemToOrder(Order order, Item item, int quantity) {
+        boolean sameItem = false;
         OrderItem orderItem = new OrderItem(item, quantity);
-        order.getOrderItems().add(orderItem);
+
+        for (OrderItem orderItem1 : order.getOrderItems()) {
+            if (item.getId() == orderItem1.getItem().getId()) {
+                sameItem = true;
+                orderItem1.setQuantity(orderItem1.getQuantity() + quantity);
+                break;
+            }
+        }
+        if (!sameItem) {
+            order.getOrderItems().add(orderItem);
+        }
+
     }
 
     public void listOrderItems(Order order) {
