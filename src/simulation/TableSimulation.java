@@ -23,35 +23,62 @@ public class TableSimulation {
 
         Waiter loggedWaiter = login(scanner, waiters);
 
-        System.out.println("\nYou were logged in successfully as " + loggedWaiter.getName());
+        System.out.println(
+                "\nYou were logged in successfully as " + loggedWaiter.getName()
+        );
 
         while (true) {
 
-            System.out.println("\n==============================");
-            System.out.println("TABLES");
-            System.out.println("==============================");
+            printSection("TABLES");
 
             tableService.listTheTables(tables);
 
-            System.out.println("\nPress the number of table to open one or 0 to exit:");
+            System.out.println(
+                    "\nPress the number of table to open one or 0 to exit:"
+            );
+
             int tableId = scanner.nextInt();
 
             if (tableId == 0) {
                 break;
             }
 
+            Table selectedTable = tables.get(tableId - 1);
+
             tableService.openTable(
-                    tables.get(tableId - 1),
+                    selectedTable,
                     items,
                     loggedWaiter
             );
+
+            if (!selectedTable.getOrders().isEmpty()) {
+
+                printSection("TABLE TOTAL");
+
+                System.out.println(
+                        "Total: " +
+                                tableService.calculateTheTable(selectedTable)
+                );
+
+                System.out.println(
+                        "\nPress 1 to pay or 0 to go back:"
+                );
+
+                int option = scanner.nextInt();
+
+                if (option == 1) {
+                    tableService.payTheTable(selectedTable);
+                }
+            }
         }
 
-        System.out.println("Simulation finished.");
+        printSection("SIMULATION FINISHED");
     }
 
 
-    private static ArrayList<Table> createTables(TableService tableService) {
+    private static ArrayList<Table> createTables(
+            TableService tableService
+    ) {
 
         ArrayList<Table> tables = new ArrayList<>();
 
@@ -136,7 +163,10 @@ public class TableSimulation {
     }
 
 
-    private static Waiter login(Scanner scanner, ArrayList<Waiter> waiters) {
+    private static Waiter login(
+            Scanner scanner,
+            ArrayList<Waiter> waiters
+    ) {
 
         while (true) {
 
@@ -145,7 +175,10 @@ public class TableSimulation {
 
             for (Waiter waiter : waiters) {
 
-                if (Objects.equals(waiter.getUsername(), username)) {
+                if (Objects.equals(
+                        waiter.getUsername(),
+                        username
+                )) {
 
                     System.out.println("Enter the password:");
                     String password = scanner.nextLine();
@@ -158,5 +191,13 @@ public class TableSimulation {
 
             System.out.println("Wrong username or password.\n");
         }
+    }
+
+
+    private static void printSection(String title) {
+
+        System.out.println("\n==============================");
+        System.out.println(title);
+        System.out.println("==============================");
     }
 }
