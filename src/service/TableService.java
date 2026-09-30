@@ -1,7 +1,7 @@
 package service;
 
 import model.*;
-import org.w3c.dom.html.HTMLTableElement;
+import model.ENUMS.TableStatus;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

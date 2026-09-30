@@ -1,5 +1,7 @@
 package model;
 
+import model.ENUMS.TableStatus;
+
 import java.util.ArrayList;
 
 public class Table {
