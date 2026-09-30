@@ -1,5 +1,5 @@
 package service;
-
+import model.ENUMS.StockMovementType;
 import model.Item;
 import model.Stock;
 
@@ -10,6 +10,7 @@ import java.util.List;
 
 public class StockService {
     List<Stock> stockList = new ArrayList<>();
+    StockMovementService stockMovementService = new StockMovementService();
 
     public void addStock(Item item, int quantity, BigDecimal stockPrice) {
 
@@ -49,6 +50,7 @@ public class StockService {
         if (!sameItem) {
             stockList.add(newStock);
         }
+        stockMovementService.recordMovement(item, quantity, StockMovementType.DELIVERY);
     }
 
     public void listStocks() {
@@ -61,8 +63,31 @@ public class StockService {
         for (Stock stock : stockList){
             if (stock.getItem().getId() == item.getId()){
                 stock.setQuantity(stock.getQuantity() - quantity);
+                stockMovementService.recordMovement(item, -quantity, StockMovementType.SALE);
                 break;
             }
         }
     }
+
+    public void adjustStock(Item item, int quantity){
+        for (Stock stock : stockList){
+            if (item.getId() == stock.getItem().getId()){
+                int difference = quantity - stock.getQuantity();
+                stock.setQuantity(quantity);
+                stockMovementService.recordMovement(item, difference, StockMovementType.ADJUSTMENT);
+                break;
+            }
+        }
+    }
+
+    public void showLowStock(int belowStock){
+        for (Stock stock : stockList){
+            if (stock.getQuantity() <= belowStock){
+                System.out.println(stock);
+            }
+        }
+    }
+
+    // getTotalStockValue - колку вреди целата моментална залиха по набавна цена
+    // addStock() да не прима quantity <= 0
 }
