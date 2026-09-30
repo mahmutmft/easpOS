@@ -12,6 +12,10 @@ public class StockService {
     List<Stock> stockList = new ArrayList<>();
     StockMovementService stockMovementService = new StockMovementService();
 
+    public StockMovementService getStockMovementService() {
+        return stockMovementService;
+    }
+
     public void addStock(Item item, int quantity, BigDecimal stockPrice) {
 
         Stock newStock = new Stock(item, quantity, stockPrice);

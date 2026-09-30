@@ -4,6 +4,7 @@ import exception.InvalidPriceException;
 import model.Item;
 import model.Order;
 import service.OrderService;
+import service.StockService;
 
 import java.math.BigDecimal;
 
@@ -11,16 +12,17 @@ public class OrderSimulation {
 
     public static void main(String[] args) {
 
-        OrderService orderService = new OrderService();
+        StockService stockService = new StockService();
+        OrderService orderService = new OrderService(stockService);
 
-        printSection("CREATE ORDER");
-
+        System.out.println("--- Creating Order ---");
         Order order = orderService.createOrder();
-        System.out.println("Order created: #" + order.getId());
+        System.out.println("Order Created");
+
+        System.out.println("------");
+        System.out.println("--- Creating Items ---");
 
         try {
-            printSection("CREATE ITEMS");
-
             Item cocaCola = new Item(
                     1,
                     "CocaCola",
@@ -37,68 +39,37 @@ public class OrderSimulation {
                     "test"
             );
 
-            System.out.println("Created: " + cocaCola.getName());
-            System.out.println("Created: " + fanta.getName());
+            System.out.println("Items Created");
 
-
-            printSection("ADD ITEMS");
+            System.out.println("------");
 
             orderService.addItemToOrder(order, cocaCola, 21);
             orderService.addItemToOrder(order, fanta, 2);
 
-            // Test duplicate item
-            orderService.addItemToOrder(order, cocaCola, 21);
-
-            printOrder(orderService, order);
-
-
-            printSection("CURRENT TOTAL");
-
-            System.out.println(
-                    "Total: " + orderService.calculateTotal(order)
-            );
-
-
-            printSection("CHANGE QUANTITY");
-
-            orderService.changeQuantity(order);
-
-            System.out.println("\nOrder after quantity change:");
-            printOrder(orderService, order);
-
-
-            printSection("REMOVE ITEM");
-
-            orderService.removeItem(order);
-
-            System.out.println("\nOrder after removing item:");
-            printOrder(orderService, order);
-
-
-            printSection("FINAL ORDER");
-
-            printOrder(orderService, order);
-
-            BigDecimal finalTotal = orderService.calculateTotal(order);
-
-            System.out.println("\nFinal total: " + finalTotal);
+            System.out.println("Items Added");
 
         } catch (InvalidPriceException e) {
-            System.out.println("\nSIMULATION ERROR: " + e.getMessage());
+            System.out.println("ERROR: " + e.getMessage());
         }
 
-        printSection("SIMULATION FINISHED");
-    }
-
-
-    private static void printOrder(OrderService orderService, Order order) {
+        System.out.println("------");
+        System.out.println("--- Order Items ---");
         orderService.listOrderItems(order);
-    }
 
+        System.out.println("------");
+        System.out.println("--- Calculating Total ---");
 
-    private static void printSection(String title) {
-        System.out.println("\n==============================");
-        System.out.println(title);
-        System.out.println("==============================");
+        BigDecimal total = orderService.calculateTotal(order);
+
+        System.out.println("Total: " + total);
+
+        System.out.println("------");
+        System.out.println("Trying change quantity");
+        orderService.changeQuantity(order);
+        System.out.println("--- Order Items ---");
+        orderService.listOrderItems(order);
+        System.out.println("Trying to remove an item");
+        orderService.removeItem(order);
+        System.out.println("--- Simulation Finished ---");
     }
 }

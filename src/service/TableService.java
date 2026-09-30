@@ -12,7 +12,8 @@ public class TableService {
     private int id = 1;
 
     private final Scanner scanner = new Scanner(System.in);
-    private final OrderService orderService = new OrderService();
+    StockService stockService = new StockService();
+    private final OrderService orderService = new OrderService(stockService);
     private final ItemService itemService = new ItemService();
     private final SaleService saleService = new SaleService();
 

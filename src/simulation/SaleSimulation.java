@@ -7,6 +7,7 @@ import model.Table;
 import model.Waiter;
 import service.OrderService;
 import service.SaleService;
+import service.StockService;
 import service.TableService;
 
 import java.math.BigDecimal;
@@ -16,8 +17,9 @@ public class SaleSimulation {
 
     public static void main(String[] args) {
 
-        OrderService orderService = new OrderService();
         SaleService saleService = new SaleService();
+        StockService stockService = new StockService();
+        OrderService orderService = new OrderService(stockService);
         TableService tableService = new TableService();
 
         Waiter mahmut = new Waiter(1, "Mahmut", "muty", "1234");

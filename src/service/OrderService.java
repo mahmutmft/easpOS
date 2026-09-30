@@ -10,6 +10,11 @@ import java.util.Scanner;
 public class OrderService {
     private int id = 1;
     Scanner scanner = new Scanner(System.in);
+    StockService stockService;
+
+    public OrderService(StockService stockService) {
+        this.stockService = stockService;
+    }
 
     public Order createOrder() {
         Order order = new Order(id);
@@ -72,5 +77,14 @@ public class OrderService {
         order.getOrderItems().removeIf(
                 orderItem -> orderItem.getItem().getId() == numberItem
         );
+    }
+
+    public void confirmOrder(Order order) {
+        for (OrderItem orderItem : order.getOrderItems()){
+            stockService.removeStock(
+                    orderItem.getItem(),
+                    orderItem.getQuantity()
+            );
+        }
     }
 }
