@@ -1,14 +1,14 @@
-package simulation;
+package simulation.sale;
 
-import model.Item;
-import model.Order;
-import model.Sale;
-import model.Table;
-import model.Waiter;
-import service.OrderService;
-import service.SaleService;
-import service.StockService;
-import service.TableService;
+import Item.Item;
+import order.Order;
+import sale.Sale;
+import table.Table;
+import waiter.Waiter;
+import order.OrderService;
+import sale.SaleService;
+import stock.StockService;
+import table.TableService;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

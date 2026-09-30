@@ -1,10 +1,9 @@
 import exception.InvalidPriceException;
-import model.Item;
-import model.Waiter;
-import service.ItemService;
-import service.WaiterService;
+import Item.Item;
+import waiter.Waiter;
+import Item.ItemService;
+import waiter.WaiterService;
 
-import java.lang.reflect.WildcardType;
 import java.util.ArrayList;
 import java.util.Scanner;
 

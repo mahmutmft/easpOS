@@ -1,10 +1,10 @@
-package simulation;
+package simulation.order;
 
 import exception.InvalidPriceException;
-import model.Item;
-import model.Order;
-import service.OrderService;
-import service.StockService;
+import Item.Item;
+import order.Order;
+import order.OrderService;
+import stock.StockService;
 
 import java.math.BigDecimal;
 

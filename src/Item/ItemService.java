@@ -1,6 +1,4 @@
-package service;
-
-import model.Item;
+package Item;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

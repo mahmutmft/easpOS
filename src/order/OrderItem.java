@@ -1,4 +1,6 @@
-package model;
+package order;
+
+import Item.Item;
 
 public class OrderItem {
     private Item item;

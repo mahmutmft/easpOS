@@ -1,4 +1,6 @@
-package model;
+package sale;
+
+import order.Order;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

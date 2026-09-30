@@ -1,6 +1,6 @@
-package model;
+package stock;
 
-import model.ENUMS.StockMovementType;
+import Item.Item;
 
 import java.time.LocalDateTime;
 

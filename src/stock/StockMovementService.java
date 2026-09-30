@@ -1,7 +1,5 @@
-package service;
-import model.ENUMS.StockMovementType;
-import model.Item;
-import model.StockMovement;
+package stock;
+import Item.Item;
 
 import java.util.ArrayList;
 

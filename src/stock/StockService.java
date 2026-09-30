@@ -1,7 +1,5 @@
-package service;
-import model.ENUMS.StockMovementType;
-import model.Item;
-import model.Stock;
+package stock;
+import Item.Item;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

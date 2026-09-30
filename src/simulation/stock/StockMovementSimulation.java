@@ -1,8 +1,8 @@
-package simulation;
+package simulation.stock;
 
-import model.ENUMS.StockMovementType;
-import model.Item;
-import service.StockMovementService;
+import stock.StockMovementType;
+import Item.Item;
+import stock.StockMovementService;
 
 import java.math.BigDecimal;
 

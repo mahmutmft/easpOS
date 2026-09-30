@@ -1,4 +1,4 @@
-package model.ENUMS;
+package stock;
 
 public enum StockMovementType {
     DELIVERY, SALE, ADJUSTMENT

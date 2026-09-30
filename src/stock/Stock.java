@@ -1,4 +1,6 @@
-package model;
+package stock;
+
+import Item.Item;
 
 import java.math.BigDecimal;
 

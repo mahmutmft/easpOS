@@ -1,9 +1,8 @@
-package model;
+package Item;
 
 import exception.InvalidPriceException;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 public class Item {
     private int id;

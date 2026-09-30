@@ -1,6 +1,7 @@
-package model;
+package table;
 
-import model.ENUMS.TableStatus;
+import waiter.Waiter;
+import order.Order;
 
 import java.util.ArrayList;
 

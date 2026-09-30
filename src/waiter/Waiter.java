@@ -1,4 +1,4 @@
-package model;
+package waiter;
 
 public class Waiter {
      private int id;

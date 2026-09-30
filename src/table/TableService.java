@@ -1,7 +1,11 @@
-package service;
+package table;
 
-import model.*;
-import model.ENUMS.TableStatus;
+import Item.Item;
+import order.Order;
+import order.OrderService;
+import sale.SaleService;
+import stock.StockService;
+import waiter.Waiter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

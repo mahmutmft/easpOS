@@ -1,6 +1,4 @@
-package service;
-
-import model.Waiter;
+package waiter;
 
 import java.util.ArrayList;
 import java.util.Scanner;

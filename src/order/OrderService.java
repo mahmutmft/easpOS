@@ -1,8 +1,7 @@
-package service;
+package order;
 
-import model.Item;
-import model.Order;
-import model.OrderItem;
+import Item.Item;
+import stock.StockService;
 
 import java.math.BigDecimal;
 import java.util.Scanner;

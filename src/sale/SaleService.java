@@ -1,7 +1,6 @@
-package service;
+package sale;
 
-import model.Sale;
-import model.Table;
+import table.Table;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

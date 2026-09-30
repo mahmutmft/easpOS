@@ -1,7 +1,7 @@
-package simulation;
+package simulation.waiter;
 
-import model.Waiter;
-import service.WaiterService;
+import waiter.Waiter;
+import waiter.WaiterService;
 
 import java.util.ArrayList;
 

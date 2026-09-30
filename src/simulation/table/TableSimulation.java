@@ -1,9 +1,9 @@
-package simulation;
+package simulation.table;
 
-import model.Item;
-import model.Table;
-import model.Waiter;
-import service.TableService;
+import Item.Item;
+import table.Table;
+import waiter.Waiter;
+import table.TableService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

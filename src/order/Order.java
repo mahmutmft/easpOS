@@ -1,4 +1,4 @@
-package model;
+package order;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

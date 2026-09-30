@@ -1,7 +1,7 @@
-package simulation;
+package simulation.stock;
 
-import model.Item;
-import service.StockService;
+import Item.Item;
+import stock.StockService;
 
 import java.math.BigDecimal;
 
