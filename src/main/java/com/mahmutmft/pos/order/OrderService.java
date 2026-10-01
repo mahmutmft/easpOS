@@ -22,6 +22,11 @@ public class OrderService {
     }
 
     public void addItemToOrder(Order order, Item item, int quantity) {
+
+        if (quantity <= 0) {
+            throw new InvalidQuantityException("Item quantity must be greater than 0.");
+        }
+
         boolean sameItem = false;
         OrderItem orderItem = new OrderItem(item, quantity);
 
@@ -32,6 +37,7 @@ public class OrderService {
                 break;
             }
         }
+
         if (!sameItem) {
             order.getOrderItems().add(orderItem);
         }
@@ -73,17 +79,18 @@ public class OrderService {
     public void removeItem(Order order) {
         System.out.println("What item should be removed");
         int numberItem = scanner.nextInt();
-        order.getOrderItems().removeIf(
-                orderItem -> orderItem.getItem().getId() == numberItem
-        );
+        order.getOrderItems().removeIf(orderItem -> orderItem.getItem().getId() == numberItem);
     }
 
     public void confirmOrder(Order order) {
-        for (OrderItem orderItem : order.getOrderItems()){
-            stockService.removeStock(
-                    orderItem.getItem(),
-                    orderItem.getQuantity()
-            );
+        if (order.isConfirmed()){
+            return;
         }
+
+        for (OrderItem orderItem : order.getOrderItems()) {
+            stockService.removeStock(orderItem.getItem(), orderItem.getQuantity());
+        }
+
+        order.setConfirmed(true);
     }
 }

@@ -8,6 +8,7 @@ public class Order {
     private int id;
     private LocalDateTime dateTime;
     private List<OrderItem> orderItems;
+    private boolean confirmed = false;
 
     public Order(int id) {
         this.id = id;
@@ -37,6 +38,14 @@ public class Order {
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 
     @Override
