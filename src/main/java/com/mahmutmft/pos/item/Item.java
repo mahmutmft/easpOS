@@ -19,8 +19,8 @@ public class Item {
     }
 
     private void checkPrice(BigDecimal price){
-        if (price.compareTo(BigDecimal.ZERO) <= 0){
-           throw new InvalidPriceException("Price is not valid");
+        if (price == null || price.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidPriceException("Price must be greater than 0.");
         }
     }
 
@@ -45,6 +45,7 @@ public class Item {
     }
 
     public void setPrice(BigDecimal price) {
+        checkPrice(price);
         this.price = price;
     }
 
